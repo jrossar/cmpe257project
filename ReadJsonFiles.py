@@ -25,12 +25,14 @@ class ReadFolder:
         files = [self.path + f for f in listdir(self.path) if isfile(join(self.path, f))]
         x = []
         y = []
+        labels_count = []
         for file in files:
             with open(file) as json_file:
                 data = json.load(json_file)
                 x.append(utils.img_b64_to_arr(data['imageData']))
                 y.append(data['shapes'][0]['label'])
-        return x, y
+                labels_count.append(len(data['shapes']))
+        return x, y, labels_count
 
         def to_grayscale(pictures):
             gray_pictures
